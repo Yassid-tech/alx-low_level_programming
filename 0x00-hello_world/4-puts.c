@@ -1,6 +1,6 @@
 #include <stdio.h>
 /**
- * print_message - Displays the message "Programming is like building a multilingual
+ * main - print_message - Displays the message "Programming is like building a multilingual
  *                puzzle, to the console.
  * Return: Always returns 0 to indicate successful execution.
  */
