@@ -23,4 +23,3 @@ multiplication = multiplication * atoi(argv[index]);
 printf("%d\n", multiplication);
 return (0);
 }
-
