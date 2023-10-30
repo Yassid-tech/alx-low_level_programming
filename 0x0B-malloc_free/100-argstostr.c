@@ -20,7 +20,7 @@ for (j = 0; *(*(av + i) + j) != '\0'; j++, total++)
 total++;
 }
 total++;
-a = malloc(sizeof(char)*total);
+a = malloc(sizeof(char) * total);
 if (a == NULL)
 return (NULL);
 retp = a;
