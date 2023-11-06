@@ -1,34 +1,46 @@
 #include "dog.h"
 #include <stdlib.h>
 /**
- * new_dog - entry point
- * @name: string from main, name of pet
- * @age: number from main, age of pet
- * @owner: string from main, owner of pet
- * Return: p
+ * new_dog -  creates a new dog.
+ *
+ *
+ * @name: char type
+ *
+ * @age: float type
+ *
+ * @owner: char type
+ *
+ * Return: Pointer to struct
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-dog_t *p;
-/* reserving memory to struct*/
-p = malloc(sizeof(dog_t));
-if (p == NULL)
+dog_t *newDog;
+int length1, length2, i, j;
+length1 = 0, length2 = 0;
+newDog = malloc(sizeof(struct dog));
+if (newDog == NULL)
 return (NULL);
-/* Cpunting name pointer*/
-if (name == NULL)
+while (name[length1++])
+;
+while (owner[length2++])
+;
+newDog->name = malloc(sizeof(newDog->name) * length1);
+if (newDog->name == NULL)
 {
-free(p);
-free(owner);
+free(newDog);
 return (NULL);
 }
-if (owner == NULL)
+for (i = 0; i < length1; i++)
+newDog->name[i] = name[i];
+newDog->age = age;
+newDog->owner = malloc(sizeof(newDog->owner) * length2);
+if (newDog->owner == NULL)
 {
-free(p);
-free(name);
+free(newDog->name);
+free(newDog);
 return (NULL);
 }
-p->name = name;
-p->age = age;
-p->owner = owner;
-return (p);
+for (j = 0; j < length2; j++)
+newDog->owner[j] = owner[j];
+return (newDog);
 }
