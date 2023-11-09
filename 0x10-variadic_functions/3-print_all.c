@@ -3,90 +3,44 @@
 #include "variadic_functions.h"
 
 /**
- * printf_char - printfs a char from var args
+ * print_all - function with 2 parameter
+ * @format: char type pointer to string
  *
- * @list: va_list to print from
- *
- * Return: void
- */
-void printf_char(va_list list)
-{
-printf("%c", (char) va_arg(list, int));
-}
-
-/**
- * printf_int - printfs an int from var args
- *
- * @list: va_list to print from
- *
- * Return: void
- */
-void printf_int(va_list list)
-{
-printf("%d", va_arg(list, int));
-}
-
-/**
- * printf_float - printfs a float from var args
- *
- * @list: va_list to print from
- *
- * Return: void
- */
-void printf_float(va_list list)
-{
-printf("%f", (float) va_arg(list, double));
-}
-
-/**
- * printf_string - printfs a string from var args
- *
- * @list: va_list to print from
- *
- * Return: void
- */
-void printf_string(va_list list)
-{
-char *str = va_arg(list, char*);
-while (str != NULL)
-{
-printf("%s", str);
-return;
-}
-printf("(nil)");
-}
-
-/**
- * print_all - prints various types given a format string for the arguments
- *
- * @format: string containing type information for args
- *
- * Return: void
+ * Description: prints anything followed by a new line
+ * Return: na
  */
 void print_all(const char * const format, ...)
 {
-const char *ptr;
-va_list list;
-funckey key[4] = { {printf_char, 'c'}, {printf_int, 'i'},
-{printf_float, 'f'}, {printf_string, 's'} };
-int keyind = 0, notfirst = 0;
-ptr = format;
-va_start(list, format);
-while (format != NULL && *ptr)
+int j;
+char *str;
+char *space;
+va_list ap;
+va_start(ap, format);
+j = 0;
+while (format && format[j])
 {
-if (key[keyind].spec == *ptr)
+space = "";
+if (format[j + 1])
+space = ", ";
+switch (format[j])
 {
-if (notfirst)
-printf(", ");
-notfirst = 1;
-key[keyind].f(list);
-ptr++;
-keyind = -1;
+case 'c':
+printf("%c%s", va_arg(ap, int), space);
+break;
+case 'i':
+printf("%d%s", va_arg(ap, int), space);
+break;
+case 'f':
+printf("%f%s", va_arg(ap, double), space);
+break;
+case 's':
+str = va_arg(ap, char *);
+if (!str || !*str)
+str = "(nil)";
+printf("%s%s", str, space);
+break;
 }
-keyind++;
-ptr += keyind / 4;
-keyind %= 4;
+j++;
 }
 printf("\n");
-va_end(list);
 }
